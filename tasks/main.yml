@@ -1,18 +1,18 @@
 ---
   - name: "Create software directory under root homedir, if it does not exist"
     file:
-      path: '/root/software/{{ package_name }}/'
+      path: "/root/software/{{ package_name }}/"
       state: directory
 
   - name: "Download and unzip Rapid7 Insight agent software package from local repository"
     unarchive:
-      src: '{{ software_url }}/{{ package_name }}'
-      dest: '/root/software/{{ package_name }}/'
+      src: "{{ software_url }}/{{ package_name }}"
+      dest: "/root/software/{{ package_name.split('.')[0] }}/"
       remote_src: yes
 
   - name: "Change the execute permissions of the installer script"
     file:
-      path: '/root/software/{{ package_name }}/agent_installer.sh'
+      path: "/root/software/{{ package_name.split('.')[0] }}/agent_installer.sh"
       owner: root
       group: root
       mode: 0777
@@ -20,5 +20,5 @@
   - name: "Run agent_installer.sh script to install the Insight agent"
     command: ./agent_installer.sh install_start --token {{ regionalID|quote }}:{{ UUID|quote }}
     args:
-      chdir: '/root/software/{{ package_name }}'
+      chdir: "/root/software/{{ package_name.split('.')[0] }}/"
       #creates: /path/to/agent.ini
