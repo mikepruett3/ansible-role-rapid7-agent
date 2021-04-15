@@ -7,7 +7,7 @@
   - name: "Download and unzip Rapid7 Insight agent software package from local repository"
     unarchive:
       src: '{{ software_url }}/{{ package_name }}'
-      dest: '/root/software/{{ package_name }}'
+      dest: '/root/software/'
       remote_src: yes
 
   - name: "Change the execute permissions of the installer script"
