@@ -1,2 +1,8 @@
 ---
 # defaults file for rapid7_agent
+
+software_url: "http://www.example.org"
+package_name: "rapid7-agent-installer.zip"
+
+regionalID: "us"
+UUID: "11111111-1111-1111-1111-11111111111"
