@@ -1,7 +1,7 @@
 ---
   - name: "Create software directory under root homedir, if it does not exist"
     file:
-      path: "/root/software/{{ package_name }}/"
+      path: "/root/software/{{ package_name.split('.')[0] }}/"
       state: directory
 
   - name: "Download and unzip Rapid7 Insight agent software package from local repository"
