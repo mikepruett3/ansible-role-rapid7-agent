@@ -17,8 +17,16 @@
       group: root
       mode: 0777
 
-  - name: "Run agent_installer.sh script to install the Insight agent"
+  - name: "Run agent_installer.sh script to install the Insight agent (Token Based)"
     command: ./agent_installer.sh install_start --token {{ regionalID|quote }}:{{ UUID|quote }}
     args:
       chdir: "/root/software/{{ package_name.split('.')[0] }}/"
       #creates: /path/to/agent.ini
+    when: token_install|bool == True
+
+  - name: "Run agent_installer.sh script to install the Insight agent (Certificate Based)"
+    command: ./agent_installer.sh install_start
+    args:
+      chdir: "/root/software/{{ package_name.split('.')[0] }}/"
+      #creates: /path/to/agent.ini
+    when: token_install|bool == False
