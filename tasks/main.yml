@@ -1,13 +1,13 @@
 ---
   - name: "Create software directory under root homedir, if it does not exist"
     file:
-      path: /root/software
+      path: '/root/software/{{ package_name }}/'
       state: directory
 
   - name: "Download and unzip Rapid7 Insight agent software package from local repository"
     unarchive:
       src: '{{ software_url }}/{{ package_name }}'
-      dest: '/root/software/'
+      dest: '/root/software/{{ package_name }}/'
       remote_src: yes
 
   - name: "Change the execute permissions of the installer script"
