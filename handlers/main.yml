@@ -1,2 +1,5 @@
 ---
-# handlers file for rapid7_agent
+  - name: restart service
+    service:
+      name: "ir_agent"
+      state: restarted
