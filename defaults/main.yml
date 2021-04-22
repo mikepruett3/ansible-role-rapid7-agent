@@ -1,5 +1,6 @@
 ---
 # defaults file for rapid7_agent
+install: true
 
 software_url: "http://www.example.org"
 package_name: "rapid7-agent-installer.zip"
@@ -7,5 +8,3 @@ package_name: "rapid7-agent-installer.zip"
 token_install: false
 regionalID: "us"
 UUID: "11111111-1111-1111-1111-11111111111"
-
-install: true
