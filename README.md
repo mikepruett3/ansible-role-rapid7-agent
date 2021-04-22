@@ -1,38 +1,63 @@
-Role Name
+Ansible Role: Rapid7_Agent
 =========
 
-A brief description of the role goes here.
+Ansible role to install/uninstall Rapid7 Insight agent on Linux servers
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+The role does not require anyting to run on RHEL and its derivatives.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Available variables are listed below, along with default values (see ```defaults/main.yml```):
+
+```
+install: true
+software_url: "http://www.example.org"
+package_name: "rapid7-agent-installer.zip"
+token_install: false
+regionalID: "us"
+UUID: "11111111-1111-1111-1111-11111111111"
+```
+
+```install:``` **(Required)** Used to control wether or not to install the agent, or uninstall a previously installed agent. Defaults to **true**.
+
+```software_url``` **(Required)** The URL that hosts the Installer package. This should be either **http** or **https**.
+
+```package_name``` **(Required)** The Installer package name.
+
+```token_install``` **(Optional)** If the installation is to be completed using the **Token** install choice, than this var needs to be set as **true**. Otherwise, the installation will be completed using the **Certificate** based install. Certificates should be included in the Installer package for convenience. **(Defaults to Certificate Install)**
+
+```regionalID``` **(Optional)** For **Token** installs, the Regional ID to be used. (i.e. **"us"**)
+
+```UUID``` **(Optional)** For **Token** installs, the UUID to be used.
+
+Role variables can be stored with the ```hosts.yaml``` file, or in the main variables file.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - role: mikepruett3.rapid7_agent
+           vars:
+             install: true
+             software_url: "http://www.example.org"
+             package_name: "rapid7-agent-installer.zip"
 
 License
 -------
 
-BSD
+MIT / BSD
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Role created by [mikepruett3](https://github.com/mikepruett3) on [Github.com](https://github.com/mikepruett3)
