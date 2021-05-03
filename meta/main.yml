@@ -15,4 +15,5 @@ galaxy_info:
     - rapid7
     - system
     - monitoring
+    - agent
     - logging
