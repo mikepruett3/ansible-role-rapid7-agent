@@ -20,7 +20,7 @@
   - name: "Install Rapid7 Insight agent"
     block:
       - name: "Run agent_installer.sh script to install the Insight agent (Token Based)"
-        ansible.builtin.command: ./agent_installer.sh install_start --token {{ regionalID|quote }}:{{ UUID|quote }}
+        command: ./agent_installer.sh install_start --token {{ regionalID|quote }}:{{ UUID|quote }}
         args:
           chdir: "/root/software/{{ package_name.split('.')[0] }}/"
           creates: /opt/rapid7/ir_agent/ir_agent
@@ -28,7 +28,7 @@
         notify: restart service
 
       - name: "Run agent_installer.sh script to install the Insight agent (Certificate Based)"
-        ansible.builtin.command: ./agent_installer.sh install_start
+        command: ./agent_installer.sh install_start
         args:
           chdir: "/root/software/{{ package_name.split('.')[0] }}/"
           creates: /opt/rapid7/ir_agent/ir_agent
@@ -39,7 +39,7 @@
   - name: "Uninstall Rapid7 Insight agent"
     block:
       - name: "Run agent_installer.sh script to uninstall the Insight agent"
-        ansible.builtin.command: ./agent_installer.sh uninstall
+        command: ./agent_installer.sh uninstall
         args:
           chdir: "/root/software/{{ package_name.split('.')[0] }}/"
           #creates: /opt/rapid7/ir_agent/ir_agent
