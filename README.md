@@ -1,7 +1,7 @@
-Ansible Role: Rapid7_Agent
+Ansible Role: Rapid7 Insight Agent
 =========
 
-Ansible role to install/uninstall Rapid7 Insight agent on Linux servers
+Ansible role to install/uninstall [Rapid7 Insight Agent](https://www.rapid7.com/globalassets/_pdfs/product-and-service-briefs/rapid7-technology-brief-insight-agent.pdf) on Linux servers
 
 Requirements
 ------------
@@ -13,7 +13,7 @@ Role Variables
 
 Available variables are listed below, along with default values (see ```defaults/main.yml```):
 
-```
+``` yaml
 install: true
 software_url: "http://www.example.org"
 package_name: "rapid7-agent-installer.zip"
@@ -44,18 +44,20 @@ None.
 Example Playbook
 ----------------
 
+``` yaml
     - hosts: servers
       roles:
-         - role: mikepruett3.rapid7_agent
+         - role: mikepruett3.rapid7-agent
            vars:
              install: true
              software_url: "http://www.example.org"
              package_name: "rapid7-agent-installer.zip"
+```
 
 License
 -------
 
-MIT / BSD
+MIT
 
 Author Information
 ------------------
