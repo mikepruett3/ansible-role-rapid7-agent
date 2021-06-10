@@ -42,5 +42,4 @@
         command: ./agent_installer.sh uninstall
         args:
           chdir: "/root/software/{{ package_name.split('.')[0] }}/"
-          #creates: /opt/rapid7/ir_agent/ir_agent
     when: install|bool == False
