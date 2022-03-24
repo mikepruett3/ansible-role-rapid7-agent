@@ -1,4 +1,17 @@
 ---
+  - name: "Gather the package facts"
+    ansible.builtin.package_facts:
+      manager: auto
+    when: ansible_facts.packages is not defined
+
+  - name: "Install required packages"
+    ansible.builtin.package:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - unzip
+    when: item|string not in ansible_facts.packages
+
   - name: "Create software directory under root homedir, if it does not exist"
     ansible.builtin.file:
       path: "/root/software/{{ package_name.split('.')[0] }}/"
