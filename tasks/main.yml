@@ -28,7 +28,7 @@
       path: "/root/software/{{ package_name.split('.')[0] }}/agent_installer.sh"
       owner: root
       group: root
-      mode: 0777
+      mode: '0770'
 
   - name: "Install Rapid7 Insight agent"
     block:
