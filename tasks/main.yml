@@ -33,7 +33,7 @@
   - name: "Install Rapid7 Insight agent"
     block:
       - name: "Run agent_installer.sh script to install the Insight agent (Token Based)"
-        command: ./agent_installer.sh install_start --token {{ regionalID|quote }}:{{ UUID|quote }}
+        command: ./agent_installer.sh install_start --token {{ regionalID|quote }}:{{ UUID|quote }} --https-proxy={{ location_proxy_host }}:{{ location_proxy_port }}
         args:
           chdir: "/root/software/{{ package_name.split('.')[0] }}/"
           creates: /opt/rapid7/ir_agent/ir_agent
@@ -41,7 +41,7 @@
         notify: restart service
 
       - name: "Run agent_installer.sh script to install the Insight agent (Certificate Based)"
-        command: ./agent_installer.sh install_start
+        command: ./agent_installer.sh install_start --https-proxy={{ location_proxy_host }}:{{ location_proxy_port }}
         args:
           chdir: "/root/software/{{ package_name.split('.')[0] }}/"
           creates: /opt/rapid7/ir_agent/ir_agent
