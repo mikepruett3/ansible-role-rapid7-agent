@@ -14,18 +14,18 @@
 
   - name: "Create software directory under root homedir, if it does not exist"
     ansible.builtin.file:
-      path: "/root/software/{{ package_name.split('.')[0] }}/"
+      path: "/root/software/rapid7-agent/"
       state: directory
 
   - name: "Download and unzip Rapid7 Insight agent software package from local repository"
     ansible.builtin.unarchive:
       src: "{{ software_url }}/{{ package_name }}"
-      dest: "/root/software/{{ package_name.split('.')[0] }}/"
+      dest: "/root/software/rapid7-agent/"
       remote_src: yes
 
   - name: "Change the execute permissions of the installer script"
     ansible.builtin.file:
-      path: "/root/software/{{ package_name.split('.')[0] }}/agent_installer.sh"
+      path: "/root/software/rapid7-agent/agent_installer.sh"
       owner: root
       group: root
       mode: '0770'
@@ -35,7 +35,7 @@
       - name: "Run agent_installer.sh script to install the Insight agent (Token Based)"
         command: ./agent_installer.sh install_start --token {{ regionalID|quote }}:{{ UUID|quote }} --https-proxy={{ location_proxy_host }}:{{ location_proxy_port }}
         args:
-          chdir: "/root/software/{{ package_name.split('.')[0] }}/"
+          chdir: "/root/software/rapid7-agent/"
           creates: /opt/rapid7/ir_agent/ir_agent
         when: token_install|bool == True
         notify: restart service
@@ -43,7 +43,7 @@
       - name: "Run agent_installer.sh script to install the Insight agent (Certificate Based)"
         command: ./agent_installer.sh install_start --https-proxy={{ location_proxy_host }}:{{ location_proxy_port }}
         args:
-          chdir: "/root/software/{{ package_name.split('.')[0] }}/"
+          chdir: "/root/software/rapid7-agent/"
           creates: /opt/rapid7/ir_agent/ir_agent
         when: token_install|bool == False
         notify: restart service
@@ -54,5 +54,5 @@
       - name: "Run agent_installer.sh script to uninstall the Insight agent"
         command: ./agent_installer.sh uninstall
         args:
-          chdir: "/root/software/{{ package_name.split('.')[0] }}/"
+          chdir: "/root/software/rapid7-agent/"
     when: install|bool == False
