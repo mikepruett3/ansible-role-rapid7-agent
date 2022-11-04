@@ -30,24 +30,25 @@
       group: root
       mode: '0770'
 
-  - name: "Install Rapid7 Insight agent"
-    block:
-      - name: "Run agent_installer.sh script to install the Insight agent (Token Based)"
-        command: ./agent_installer.sh install_start --token {{ regionalID|quote }}:{{ UUID|quote }} --https-proxy={{ location_proxy_host }}:{{ location_proxy_port }}
-        args:
-          chdir: "/root/software/rapid7-agent/"
-          creates: /opt/rapid7/ir_agent/ir_agent
-        when: token_install|bool == True
-        notify: restart service
+  - name: "Run agent_installer.sh script to install the Insight agent (Token Based)"
+    command: ./agent_installer.sh install_start --token {{ regionalID|quote }}:{{ UUID|quote }} --https-proxy={{ location_proxy_host }}:{{ location_proxy_port }}
+    args:
+      chdir: "/root/software/rapid7-agent/"
+      creates: /opt/rapid7/ir_agent/ir_agent
+    notify: restart service
+    when:
+      - token_install|bool == True
+      - install|bool == True
 
-      - name: "Run agent_installer.sh script to install the Insight agent (Certificate Based)"
-        command: ./agent_installer.sh install_start --https-proxy={{ location_proxy_host }}:{{ location_proxy_port }}
-        args:
-          chdir: "/root/software/rapid7-agent/"
-          creates: /opt/rapid7/ir_agent/ir_agent
-        when: token_install|bool == False
-        notify: restart service
-    when: install|bool == True
+  - name: "Run agent_installer.sh script to install the Insight agent (Certificate Based)"
+    command: ./agent_installer.sh install_start --https-proxy={{ location_proxy_host }}:{{ location_proxy_port }}
+    args:
+      chdir: "/root/software/rapid7-agent/"
+      creates: /opt/rapid7/ir_agent/ir_agent
+    notify: restart service
+    when:
+      - token_install|bool == False
+      - install|bool == True
 
   - name: "Uninstall Rapid7 Insight agent"
     block:
